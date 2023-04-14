@@ -1,0 +1,30 @@
+﻿<Page x:Class="Elecricity_billing.Perconal_account_page"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Elecricity_billing"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d" 
+      d:DesignHeight="500" d:DesignWidth="1240"
+      Title="Perconal_account_page"  >
+
+    <Grid>
+        <TextBlock Text="Расчётные счета" VerticalAlignment="Top" 
+                           FontSize="20" FontWeight="Bold"/>
+        <ListBox x:Name="ListBox_personal_acc" HorizontalAlignment="Left" Height="300" Margin="570,147,0,0" VerticalAlignment="Top" Width="600" SelectionChanged="ListBox_personal_acc_SelectionChanged" />
+        <Label Content="Номер расчётного счёта" Height="30" Margin="25,52,0,0" VerticalAlignment="Top" Width="190" Foreground="#DD000000" HorizontalAlignment="Left" FontWeight="Bold"/>
+        <TextBox x:Name="TextBox_num_perconal_acc" HorizontalAlignment="Left" Height="25" Margin="25,82,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="190"/>
+        <Label Content="Плательщик" Height="30" Margin="255,52,0,0" VerticalAlignment="Top" Width="190" Foreground="#DD000000" HorizontalAlignment="Left" FontWeight="Bold"/>
+        <TextBox x:Name="TextBox_payer" HorizontalAlignment="Left" Height="25" Margin="255,82,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="190"/>
+        <Label Content="Номер участка" Height="30" Margin="25,147,0,0" VerticalAlignment="Top" Width="190" Foreground="#DD000000" HorizontalAlignment="Left" FontWeight="Bold"/>
+        <TextBox x:Name="TextBox_number_lot" HorizontalAlignment="Left" Height="25" Margin="25,177,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="190"/>
+        <Label Content="Общая площадь" Height="30" Margin="255,147,0,0" VerticalAlignment="Top" Width="190" Foreground="#DD000000" HorizontalAlignment="Left" FontWeight="Bold"/>
+        <TextBox x:Name="TextBox_land_area" HorizontalAlignment="Left" Height="25" Margin="255,177,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="190"/>
+        <Label Content="Код счётчика" Height="30" Margin="25,242,0,0" VerticalAlignment="Top" Width="190" Foreground="#DD000000" HorizontalAlignment="Left" FontWeight="Bold"/>
+        <TextBox x:Name="TextBox_id_counter" HorizontalAlignment="Left" Height="25" Margin="25,272,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="190"/>
+        <Label Content="Поиск:" Height="30" Margin="570,52,0,0" VerticalAlignment="Top" Width="190" Foreground="#DD000000" HorizontalAlignment="Left" FontWeight="Bold"/>
+        <TextBox x:Name="TextBox_seurch" HorizontalAlignment="Left" Height="25" Margin="570,82,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="190" SelectionChanged="TextBox_seurch_TextChanged"/>
+
+    </Grid>
+</Page>

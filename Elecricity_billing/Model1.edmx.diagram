@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7f4e9c2ae48d48c1a8384323f861207e" Name="Diagram1">
+        <EntityTypeShape EntityType="Model.Counter" Width="1.5" PointX="3" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Counter_reading" Width="1.5" PointX="7.5" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Perconal_account" Width="1.5" PointX="5.25" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Reading_indication" Width="1.5" PointX="7.5" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Tarif" Width="1.5" PointX="0.75" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Users" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="Model.FK__Counter__Id_tari__34C8D9D1" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__Counter_r__Id_co__2F10007B" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__Perconal___Id_co__300424B4" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__Counter_r__Id_pe__2E1BDC42" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__Reading_i__Id_pe__31EC6D26" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

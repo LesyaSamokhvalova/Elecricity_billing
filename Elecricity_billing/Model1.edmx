@@ -1,0 +1,432 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Counter">
+          <Key>
+            <PropertyRef Name="Id_counter" />
+          </Key>
+          <Property Name="Id_counter" Type="int" Nullable="false" />
+          <Property Name="Mark" Type="nchar" MaxLength="10" />
+          <Property Name="Serial_number" Type="nchar" MaxLength="10" />
+          <Property Name="Seal_number" Type="nchar" MaxLength="10" />
+          <Property Name="Id_tarif" Type="int" Nullable="false" />
+          <Property Name="Photo" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Counter_reading">
+          <Key>
+            <PropertyRef Name="Id_indication" />
+          </Key>
+          <Property Name="Id_indication" Type="int" Nullable="false" />
+          <Property Name="Id_personal_account" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Id_counter" Type="int" Nullable="false" />
+          <Property Name="Date_current_indication" Type="datetime2" Precision="7" />
+          <Property Name="Current_indication" Type="int" />
+          <Property Name="Date_past_indication" Type="datetime2" Precision="7" />
+          <Property Name="Past_indication" Type="int" />
+          <Property Name="Consumption" Type="int" />
+          <Property Name="Value_tarif" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Accrued" Type="decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="Perconal_account">
+          <Key>
+            <PropertyRef Name="Id_personal_account" />
+          </Key>
+          <Property Name="Id_personal_account" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Payer" Type="nvarchar(max)" />
+          <Property Name="Number_lot" Type="nvarchar" MaxLength="50" />
+          <Property Name="Land_area" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Id_counter" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Reading_indication">
+          <Key>
+            <PropertyRef Name="Id_payment" />
+          </Key>
+          <Property Name="Id_payment" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_personal_account" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Opening_balance" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Accrued" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Total_penalties" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Paid" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Closing_balance" Type="decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="Tarif">
+          <Key>
+            <PropertyRef Name="Id_tarif" />
+          </Key>
+          <Property Name="Id_tarif" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Type_tarif" Type="nvarchar" MaxLength="50" />
+          <Property Name="Value_tarif" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="About_tarif" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id_user" />
+          </Key>
+          <Property Name="Id_user" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Login" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Password" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Counter__Id_tari__34C8D9D1">
+          <End Role="Tarif" Type="Self.Tarif" Multiplicity="1" />
+          <End Role="Counter" Type="Self.Counter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tarif">
+              <PropertyRef Name="Id_tarif" />
+            </Principal>
+            <Dependent Role="Counter">
+              <PropertyRef Name="Id_tarif" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Counter_r__Id_co__2F10007B">
+          <End Role="Counter" Type="Self.Counter" Multiplicity="1" />
+          <End Role="Counter_reading" Type="Self.Counter_reading" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Counter">
+              <PropertyRef Name="Id_counter" />
+            </Principal>
+            <Dependent Role="Counter_reading">
+              <PropertyRef Name="Id_counter" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Counter_r__Id_pe__2E1BDC42">
+          <End Role="Perconal_account" Type="Self.Perconal_account" Multiplicity="1" />
+          <End Role="Counter_reading" Type="Self.Counter_reading" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Perconal_account">
+              <PropertyRef Name="Id_personal_account" />
+            </Principal>
+            <Dependent Role="Counter_reading">
+              <PropertyRef Name="Id_personal_account" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Perconal___Id_co__300424B4">
+          <End Role="Counter" Type="Self.Counter" Multiplicity="1" />
+          <End Role="Perconal_account" Type="Self.Perconal_account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Counter">
+              <PropertyRef Name="Id_counter" />
+            </Principal>
+            <Dependent Role="Perconal_account">
+              <PropertyRef Name="Id_counter" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reading_i__Id_pe__31EC6D26">
+          <End Role="Perconal_account" Type="Self.Perconal_account" Multiplicity="1" />
+          <End Role="Reading_indication" Type="Self.Reading_indication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Perconal_account">
+              <PropertyRef Name="Id_personal_account" />
+            </Principal>
+            <Dependent Role="Reading_indication">
+              <PropertyRef Name="Id_personal_account" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище ModelContainer">
+          <EntitySet Name="Counter" EntityType="Self.Counter" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Counter_reading" EntityType="Self.Counter_reading" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Perconal_account" EntityType="Self.Perconal_account" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reading_indication" EntityType="Self.Reading_indication" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tarif" EntityType="Self.Tarif" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Counter__Id_tari__34C8D9D1" Association="Self.FK__Counter__Id_tari__34C8D9D1">
+            <End Role="Tarif" EntitySet="Tarif" />
+            <End Role="Counter" EntitySet="Counter" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Counter_r__Id_co__2F10007B" Association="Self.FK__Counter_r__Id_co__2F10007B">
+            <End Role="Counter" EntitySet="Counter" />
+            <End Role="Counter_reading" EntitySet="Counter_reading" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Counter_r__Id_pe__2E1BDC42" Association="Self.FK__Counter_r__Id_pe__2E1BDC42">
+            <End Role="Perconal_account" EntitySet="Perconal_account" />
+            <End Role="Counter_reading" EntitySet="Counter_reading" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Perconal___Id_co__300424B4" Association="Self.FK__Perconal___Id_co__300424B4">
+            <End Role="Counter" EntitySet="Counter" />
+            <End Role="Perconal_account" EntitySet="Perconal_account" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reading_i__Id_pe__31EC6D26" Association="Self.FK__Reading_i__Id_pe__31EC6D26">
+            <End Role="Perconal_account" EntitySet="Perconal_account" />
+            <End Role="Reading_indication" EntitySet="Reading_indication" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Counter">
+          <Key>
+            <PropertyRef Name="Id_counter" />
+          </Key>
+          <Property Name="Id_counter" Type="Int32" Nullable="false" />
+          <Property Name="Mark" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Serial_number" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Seal_number" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Id_tarif" Type="Int32" Nullable="false" />
+          <Property Name="Photo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Tarif" Relationship="Self.FK__Counter__Id_tari__34C8D9D1" FromRole="Counter" ToRole="Tarif" />
+          <NavigationProperty Name="Counter_reading" Relationship="Self.FK__Counter_r__Id_co__2F10007B" FromRole="Counter" ToRole="Counter_reading" />
+          <NavigationProperty Name="Perconal_account" Relationship="Self.FK__Perconal___Id_co__300424B4" FromRole="Counter" ToRole="Perconal_account" />
+        </EntityType>
+        <EntityType Name="Counter_reading">
+          <Key>
+            <PropertyRef Name="Id_indication" />
+          </Key>
+          <Property Name="Id_indication" Type="Int32" Nullable="false" />
+          <Property Name="Id_personal_account" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Id_counter" Type="Int32" Nullable="false" />
+          <Property Name="Date_current_indication" Type="DateTime" Precision="7" />
+          <Property Name="Current_indication" Type="Int32" />
+          <Property Name="Date_past_indication" Type="DateTime" Precision="7" />
+          <Property Name="Past_indication" Type="Int32" />
+          <Property Name="Consumption" Type="Int32" />
+          <Property Name="Value_tarif" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Accrued" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="Counter" Relationship="Self.FK__Counter_r__Id_co__2F10007B" FromRole="Counter_reading" ToRole="Counter" />
+          <NavigationProperty Name="Perconal_account" Relationship="Self.FK__Counter_r__Id_pe__2E1BDC42" FromRole="Counter_reading" ToRole="Perconal_account" />
+        </EntityType>
+        <EntityType Name="Perconal_account">
+          <Key>
+            <PropertyRef Name="Id_personal_account" />
+          </Key>
+          <Property Name="Id_personal_account" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Payer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Number_lot" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Land_area" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Id_counter" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Counter" Relationship="Self.FK__Perconal___Id_co__300424B4" FromRole="Perconal_account" ToRole="Counter" />
+          <NavigationProperty Name="Counter_reading" Relationship="Self.FK__Counter_r__Id_pe__2E1BDC42" FromRole="Perconal_account" ToRole="Counter_reading" />
+          <NavigationProperty Name="Reading_indication" Relationship="Self.FK__Reading_i__Id_pe__31EC6D26" FromRole="Perconal_account" ToRole="Reading_indication" />
+        </EntityType>
+        <EntityType Name="Reading_indication">
+          <Key>
+            <PropertyRef Name="Id_payment" />
+          </Key>
+          <Property Name="Id_payment" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_personal_account" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Opening_balance" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Accrued" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Total_penalties" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Paid" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Closing_balance" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="Perconal_account" Relationship="Self.FK__Reading_i__Id_pe__31EC6D26" FromRole="Reading_indication" ToRole="Perconal_account" />
+        </EntityType>
+        <EntityType Name="Tarif">
+          <Key>
+            <PropertyRef Name="Id_tarif" />
+          </Key>
+          <Property Name="Id_tarif" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Type_tarif" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Value_tarif" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="About_tarif" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Counter" Relationship="Self.FK__Counter__Id_tari__34C8D9D1" FromRole="Tarif" ToRole="Counter" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id_user" />
+          </Key>
+          <Property Name="Id_user" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Counter__Id_tari__34C8D9D1">
+          <End Role="Tarif" Type="Self.Tarif" Multiplicity="1" />
+          <End Role="Counter" Type="Self.Counter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tarif">
+              <PropertyRef Name="Id_tarif" />
+            </Principal>
+            <Dependent Role="Counter">
+              <PropertyRef Name="Id_tarif" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Counter_r__Id_co__2F10007B">
+          <End Role="Counter" Type="Self.Counter" Multiplicity="1" />
+          <End Role="Counter_reading" Type="Self.Counter_reading" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Counter">
+              <PropertyRef Name="Id_counter" />
+            </Principal>
+            <Dependent Role="Counter_reading">
+              <PropertyRef Name="Id_counter" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Perconal___Id_co__300424B4">
+          <End Role="Counter" Type="Self.Counter" Multiplicity="1" />
+          <End Role="Perconal_account" Type="Self.Perconal_account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Counter">
+              <PropertyRef Name="Id_counter" />
+            </Principal>
+            <Dependent Role="Perconal_account">
+              <PropertyRef Name="Id_counter" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Counter_r__Id_pe__2E1BDC42">
+          <End Role="Perconal_account" Type="Self.Perconal_account" Multiplicity="1" />
+          <End Role="Counter_reading" Type="Self.Counter_reading" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Perconal_account">
+              <PropertyRef Name="Id_personal_account" />
+            </Principal>
+            <Dependent Role="Counter_reading">
+              <PropertyRef Name="Id_personal_account" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reading_i__Id_pe__31EC6D26">
+          <End Role="Perconal_account" Type="Self.Perconal_account" Multiplicity="1" />
+          <End Role="Reading_indication" Type="Self.Reading_indication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Perconal_account">
+              <PropertyRef Name="Id_personal_account" />
+            </Principal>
+            <Dependent Role="Reading_indication">
+              <PropertyRef Name="Id_personal_account" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Counter" EntityType="Self.Counter" />
+          <EntitySet Name="Counter_reading" EntityType="Self.Counter_reading" />
+          <EntitySet Name="Perconal_account" EntityType="Self.Perconal_account" />
+          <EntitySet Name="Reading_indication" EntityType="Self.Reading_indication" />
+          <EntitySet Name="Tarif" EntityType="Self.Tarif" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <AssociationSet Name="FK__Counter__Id_tari__34C8D9D1" Association="Self.FK__Counter__Id_tari__34C8D9D1">
+            <End Role="Tarif" EntitySet="Tarif" />
+            <End Role="Counter" EntitySet="Counter" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Counter_r__Id_co__2F10007B" Association="Self.FK__Counter_r__Id_co__2F10007B">
+            <End Role="Counter" EntitySet="Counter" />
+            <End Role="Counter_reading" EntitySet="Counter_reading" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Perconal___Id_co__300424B4" Association="Self.FK__Perconal___Id_co__300424B4">
+            <End Role="Counter" EntitySet="Counter" />
+            <End Role="Perconal_account" EntitySet="Perconal_account" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Counter_r__Id_pe__2E1BDC42" Association="Self.FK__Counter_r__Id_pe__2E1BDC42">
+            <End Role="Perconal_account" EntitySet="Perconal_account" />
+            <End Role="Counter_reading" EntitySet="Counter_reading" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reading_i__Id_pe__31EC6D26" Association="Self.FK__Reading_i__Id_pe__31EC6D26">
+            <End Role="Perconal_account" EntitySet="Perconal_account" />
+            <End Role="Reading_indication" EntitySet="Reading_indication" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище ModelContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="Counter">
+            <EntityTypeMapping TypeName="Model.Counter">
+              <MappingFragment StoreEntitySet="Counter">
+                <ScalarProperty Name="Id_counter" ColumnName="Id_counter" />
+                <ScalarProperty Name="Mark" ColumnName="Mark" />
+                <ScalarProperty Name="Serial_number" ColumnName="Serial_number" />
+                <ScalarProperty Name="Seal_number" ColumnName="Seal_number" />
+                <ScalarProperty Name="Id_tarif" ColumnName="Id_tarif" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Counter_reading">
+            <EntityTypeMapping TypeName="Model.Counter_reading">
+              <MappingFragment StoreEntitySet="Counter_reading">
+                <ScalarProperty Name="Id_indication" ColumnName="Id_indication" />
+                <ScalarProperty Name="Id_personal_account" ColumnName="Id_personal_account" />
+                <ScalarProperty Name="Id_counter" ColumnName="Id_counter" />
+                <ScalarProperty Name="Date_current_indication" ColumnName="Date_current_indication" />
+                <ScalarProperty Name="Current_indication" ColumnName="Current_indication" />
+                <ScalarProperty Name="Date_past_indication" ColumnName="Date_past_indication" />
+                <ScalarProperty Name="Past_indication" ColumnName="Past_indication" />
+                <ScalarProperty Name="Consumption" ColumnName="Consumption" />
+                <ScalarProperty Name="Value_tarif" ColumnName="Value_tarif" />
+                <ScalarProperty Name="Accrued" ColumnName="Accrued" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Perconal_account">
+            <EntityTypeMapping TypeName="Model.Perconal_account">
+              <MappingFragment StoreEntitySet="Perconal_account">
+                <ScalarProperty Name="Id_personal_account" ColumnName="Id_personal_account" />
+                <ScalarProperty Name="Payer" ColumnName="Payer" />
+                <ScalarProperty Name="Number_lot" ColumnName="Number_lot" />
+                <ScalarProperty Name="Land_area" ColumnName="Land_area" />
+                <ScalarProperty Name="Id_counter" ColumnName="Id_counter" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reading_indication">
+            <EntityTypeMapping TypeName="Model.Reading_indication">
+              <MappingFragment StoreEntitySet="Reading_indication">
+                <ScalarProperty Name="Id_payment" ColumnName="Id_payment" />
+                <ScalarProperty Name="Id_personal_account" ColumnName="Id_personal_account" />
+                <ScalarProperty Name="Opening_balance" ColumnName="Opening_balance" />
+                <ScalarProperty Name="Accrued" ColumnName="Accrued" />
+                <ScalarProperty Name="Total_penalties" ColumnName="Total_penalties" />
+                <ScalarProperty Name="Paid" ColumnName="Paid" />
+                <ScalarProperty Name="Closing_balance" ColumnName="Closing_balance" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tarif">
+            <EntityTypeMapping TypeName="Model.Tarif">
+              <MappingFragment StoreEntitySet="Tarif">
+                <ScalarProperty Name="Id_tarif" ColumnName="Id_tarif" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Type_tarif" ColumnName="Type_tarif" />
+                <ScalarProperty Name="Value_tarif" ColumnName="Value_tarif" />
+                <ScalarProperty Name="About_tarif" ColumnName="About_tarif" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="Model.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Id_user" ColumnName="Id_user" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
