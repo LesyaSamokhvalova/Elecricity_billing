@@ -55,7 +55,7 @@
                 <ImageBrush ImageSource="userwhite.png"/>
             </Menu.Background>
             <MenuItem HorizontalContentAlignment="Left">
-                <MenuItem Header="Здравствуйте, Администратор!" Height="40"/>
+                <MenuItem Header="Здравствуйте, Вадим Николаевич!" Height="40"/>
                 <MenuItem Header="Выйти" Click="Button_escape_Click" Height="40" />
             </MenuItem>
         </Menu>

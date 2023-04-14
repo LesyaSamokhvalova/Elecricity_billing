@@ -9,7 +9,7 @@
        
         
         Title="Учёт начисления электроэнергии"  Height="800" Width="1500" Icon="expenses.png" FontFamily="Open Sans"
-        HorizontalAlignment="Center" VerticalAlignment="Center" WindowState="Maximized">
+        HorizontalAlignment="Center" VerticalAlignment="Center" WindowState="Maximized" Loaded="MainWindow_Loaded">
     <Grid Background="#FFB5B9E8">
         <Border Height="700" MinWidth="1430" Margin="20" Background="White" 
                 VerticalAlignment="Center" Padding="40" 
@@ -36,8 +36,12 @@
             </Border>
 
         </Border>
-        <Frame x:Name="Frame" HorizontalAlignment="Center" Height="500" Margin="0,200,0,0" VerticalAlignment="Top" Width="1240"
+        <Frame x:Name="Frame" HorizontalAlignment="Center" Height="500" Margin="0,180,0,0" VerticalAlignment="Top" Width="1240"
                NavigationUIVisibility="Hidden" Content="{Binding CurrentPage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <StackPanel Margin="0,650,0,0" Height="40">
+            <Label Content="Время работы в системе:" HorizontalAlignment="Left" Margin="80,0,0,0" Height="30" FontSize="16" />
+            <Label x:Name="Label_Time" Margin="-700,-30,0,0" HorizontalAlignment="Center" Height="30" Width="200" FontSize="16"/>
+        </StackPanel>
         <Menu DockPanel.Dock="Top" HorizontalAlignment="Left" Height="40" Margin="1340,115,0,0" VerticalAlignment="Top" Width="40" Foreground="#FF7279D8">
             <Menu.Background>
                 <ImageBrush ImageSource="userwhite.png"/>

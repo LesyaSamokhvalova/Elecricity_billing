@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace Elecricity_billing
 {
@@ -19,6 +20,7 @@ namespace Elecricity_billing
     /// </summary>
     public partial class Window_user : Window
     {
+        DateTime date;
         public Window_user()
         {
             InitializeComponent();
@@ -39,6 +41,23 @@ namespace Elecricity_billing
             Window_Login window_Login = new Window_Login();
             this.Close();
             window_Login.ShowDialog();
+        }
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            date = DateTime.Now;
+
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(1);
+            timer.Tick += new EventHandler(timer_Tick);
+            timer.Start();
+        }
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            long tick = DateTime.Now.Ticks - date.Ticks;
+            DateTime stopWatch = new DateTime();
+
+            stopWatch = stopWatch.AddTicks(tick);
+            Label_Time.Content = String.Format("{0:HH:mm:ss}", stopWatch);
         }
     }
 }
