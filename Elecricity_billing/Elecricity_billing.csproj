@@ -98,6 +98,7 @@
     <Compile Include="Counter_reading_page.xaml.cs">
       <DependentUpon>Counter_reading_page.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Cripto.cs" />
     <Compile Include="Electricty_tostring.cs" />
     <Compile Include="Model1.Context.cs">
       <AutoGen>True</AutoGen>

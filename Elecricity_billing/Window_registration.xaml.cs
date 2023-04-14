@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Elecricity_billing.functions;
+using static Elecricity_billing.Cripto;
 
 namespace Elecricity_billing
 {
@@ -37,7 +38,7 @@ namespace Elecricity_billing
             {
                 if (Regex.IsMatch(textBox_login.Text, pattern))
                 {
-                    if(passwordBox_password.Password == passwordBox_password2.Password)
+                    if (passwordBox_password.Password == passwordBox_password2.Password)
                     {
                         string login_ = TextBoxGet.GetText(textBox_login);
 
@@ -81,7 +82,8 @@ namespace Elecricity_billing
             else
             {
                 MessageBox.Show("Not all data has been entered");
-            }            
+            }
+
         }
 
         private void button_cancel_Click(object sender, RoutedEventArgs e)
