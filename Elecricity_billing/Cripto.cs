@@ -8,8 +8,7 @@ using System.Threading.Tasks;
 
 namespace Elecricity_billing
 {
-    class Cripto
-    {
+
         public class Cryptography
         {
             public static string Encrypt(string encryptString)
@@ -62,5 +61,5 @@ namespace Elecricity_billing
             }
         }
     }
-}
+
 

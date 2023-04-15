@@ -11,7 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using static Elecricity_billing.Cripto;
+
 
 namespace Elecricity_billing
 {
@@ -26,6 +26,12 @@ namespace Elecricity_billing
             InitializeComponent();
         }
 
+        private void button_registration_Click(object sender, RoutedEventArgs e)
+        {
+            Window_registration window = new Window_registration();
+            this.Close();
+            window.ShowDialog();
+        }
         private void button_enter_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -86,11 +92,6 @@ namespace Elecricity_billing
             }
         }
 
-        private void button_registration_Click(object sender, RoutedEventArgs e)
-        {
-            Window_registration window = new Window_registration();
-            this.Close();
-            window.ShowDialog();
-        }
+       
     }
 }

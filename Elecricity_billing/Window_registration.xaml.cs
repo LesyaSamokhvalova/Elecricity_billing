@@ -13,7 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Elecricity_billing.functions;
-using static Elecricity_billing.Cripto;
+
 
 namespace Elecricity_billing
 {
@@ -34,64 +34,73 @@ namespace Elecricity_billing
 
         private void button_registration_Click(object sender, RoutedEventArgs e)
         {
-            if (TextBoxGet.GetLenght(textBox_login) > 0 && TextBoxGet.GetLenght(null, passwordBox_password) > 0 && TextBoxGet.GetLenght(null, passwordBox_password2) > 0)
+            try
             {
-                if (Regex.IsMatch(textBox_login.Text, pattern))
+                if (TextBoxGet.GetLenght(textBox_login) > 0 && TextBoxGet.GetLenght(null, passwordBox_password) > 0 && TextBoxGet.GetLenght(null, passwordBox_password2) > 0)
                 {
-                    if (passwordBox_password.Password == passwordBox_password2.Password)
+                    if (Regex.IsMatch(textBox_login.Text, pattern))
                     {
-                        string login_ = TextBoxGet.GetText(textBox_login);
-
-                        var log = (from item in entities.Users where item.Login == login_ select item).Count();
-
-                        if (log > 0)
+                        if (passwordBox_password.Password == passwordBox_password2.Password)
                         {
-                            MessageBox.Show("Этот пользователь уже существует", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                            return;
-                        }
+                            string login_ = TextBoxGet.GetText(textBox_login);
 
-                        try
-                        {
-                            user.Login = TextBoxGet.GetText(textBox_login);
-                            user.Password = TextBoxGet.GetText(null, passwordBox_password);
+                            var log = (from item in entities.Users where item.Login == login_ select item).Count();
 
-                            entities.Users.Add(user);
-
-                            if (entities.SaveChanges() > 0)
+                            if (log > 0)
                             {
-                                Window_Login main = new Window_Login();
-                                this.Close();
-                                main.ShowDialog();
+                                MessageBox.Show("Этот пользователь уже существует", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                                return;
+                            }
+
+                            try
+                            {
+                                user.Login = TextBoxGet.GetText(textBox_login);
+                                user.Password = TextBoxGet.GetText(null, passwordBox_password);
+
+                                entities.Users.Add(user);
+
+                                if (entities.SaveChanges() > 0)
+                                {
+                                    Window_Login main = new Window_Login();
+                                    this.Close();
+                                    main.ShowDialog();
+                                }
+                            }
+                            catch (Exception)
+                            {
+                                MessageBox.Show("Ошибка");
                             }
                         }
-                        catch (Exception)
+                        else
                         {
-                            MessageBox.Show("Ошибка");
+                            MessageBox.Show("Пароли не совпадают");
                         }
                     }
                     else
                     {
-                        MessageBox.Show("Пароли не совпадают");
+                        MessageBox.Show("Некорректное имя пользователя");
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Некорректное имя пользователя");
+                    MessageBox.Show("Not all data has been entered");
                 }
-            }
-            else
-            {
-                MessageBox.Show("Not all data has been entered");
-            }
 
+            }
+            catch (Exception Ex)
+            {
+                MessageBox.Show("Ошибка! " + Ex.Message.ToString() + " Критическая работа приложения!",
+                    "Уведомление", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
 
-        private void button_cancel_Click(object sender, RoutedEventArgs e)
+                private void button_cancel_Click(object sender, RoutedEventArgs e)
         {
             Window_Login log = new Window_Login();
             this.Close();
             log.ShowDialog();
             
         }
+       
     }
 }
